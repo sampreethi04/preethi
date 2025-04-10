@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Build App
+        run: echo "🔨 Building the app..."
+
+  test-frontend:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Frontend Tests
+        run: echo "✅ Running frontend tests..."
+
+  test-backend:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Backend Tests
+        run: echo "✅ Running backend tests..."
+
+  deploy:
+    needs: 
+      - test-frontend
+      - test-backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy App
+        run: echo "🚀 Deploying the app!"
